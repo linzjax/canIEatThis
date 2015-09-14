@@ -31,6 +31,12 @@ var getIngredients = function(url){
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(response, 'text/html');
 
+			if (!doc.querySelectorAll('li.ingredient')){
+				console.log('oh no');
+				return;
+			}
+				
+
 			var ingredient = doc.querySelectorAll('li.ingredient');
 
 			for (i = 0; i < ingredient.length; i++){
@@ -41,20 +47,18 @@ var getIngredients = function(url){
 						if (!ingredient[i].childNodes[j].data){
 							ingredient_url += ingredient[i].childNodes[j].text;
 
-						}else{
+						} else{
 							ingredient_url += ingredient[i].childNodes[j].data;
-						}
+						} //end if not text, try link
 					}
 					recipe_ingredients.push(ingredient_url);
-				}
-				else {
+				} else {
 					recipe_ingredients.push(ingredient[i].childNodes[0].data);
-				}
-			}
-			console.log(recipe_ingredients);
-			displayUnsafe(recipe_ingredients);
-		}
-	};
+				} // end if multiple childNodes
+			} //for ingredient lenth
+		}//end xhr
+		displayUnsafe(recipe_ingredients);
+	}
 
 	xhr.open("GET", url, true);
 	xhr.send(null);
@@ -65,11 +69,17 @@ var getIngredients = function(url){
 
 var displayUnsafe = function(ingredients){
 	ingredients.forEach(function(ingredient){
+		var cut_ingredient = ingredient;
+		if (parseInt(ingredient)){
+			cut_ingredient = ingredient.split(' ').slice(2).join(' ');
+			cut_ingredient = cut_ingredient.split(',')[0];
+		}
+		console.log(cut_ingredient);
 		categories.forEach(function(group){
 
 			dontEat[group].forEach(function(food){
 
-				if (ingredient.match(food)){
+				if (cut_ingredient.match(food)){
 					document.getElementById('unsafe').innerHTML += "<li>" + food + "</li>";
 				}
 			});
