@@ -1,0 +1,32 @@
+{
+  
+  "manifest_version": 2,
+  "name": "Can I Eat This?",
+  "version": "0.0.0.1",
+
+  "description": "Double check a recipe based on the Paleo Auto-Immune Protocol",
+  // "icons": {...},
+
+  "browser_action": {
+  	"default_popup":"test.html"
+  	},
+
+  // Optional
+  "author": "Lindsey Jacks",
+  
+  "content_scripts": [{
+  	"matches": ["http://www.google.com/*"],
+  		"js":["avoid.js","main.js"]
+  	}],
+
+  "permissions": [
+  		"*://*/*",
+  		"tabs",
+  		"activeTab"
+  	],
+
+  "homepage_url": "http://path/to/homepage",
+  
+  "optional_permissions": ["tabs"]
+
+}
