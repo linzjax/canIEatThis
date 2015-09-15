@@ -1,10 +1,35 @@
 var categories = Object.keys(dontEat);
-var recipe_ingredients = [];
+var recipeIngredients = [];
 
 var saveIngredients = function(){
 	getCurrentTabUrl(function(url){
 		getIngredients(url);
 	});
+};
+
+
+
+//check if the ingredients list contains anything other than plain text.
+var ingredientsWithLinks = function(ingredient){
+	for (i = 0; i < ingredient.length; i++){
+		if (ingredient[i].childNodes.length > 1){
+			var ingredientWithLinks = '';
+
+			for (j = 0; j < ingredient[i].childNodes.length; j++){
+				
+				if (!ingredient[i].childNodes[j].data){
+					ingredientWithLinks += ingredient[i].childNodes[j].text;
+
+				} else{
+					ingredientWithLinks += ingredient[i].childNodes[j].data;
+				} //end if not text, try link
+			}
+			recipeIngredients.push(ingredientWithLinks);
+
+		} else {
+			recipeIngredients.push(ingredient[i].childNodes[0].data);
+		} // end if multiple childNodes
+	} //for ingredient length
 };
 
 var getCurrentTabUrl = function(callback) {
@@ -39,26 +64,11 @@ var getIngredients = function(url){
 
 			var ingredient = doc.querySelectorAll('li.ingredient');
 
-			for (i = 0; i < ingredient.length; i++){
-				if (ingredient[i].childNodes.length > 1){
-					var ingredient_url = '';
-					for (j = 0; j < ingredient[i].childNodes.length; j++){
-						
-						if (!ingredient[i].childNodes[j].data){
-							ingredient_url += ingredient[i].childNodes[j].text;
-
-						} else{
-							ingredient_url += ingredient[i].childNodes[j].data;
-						} //end if not text, try link
-					}
-					recipe_ingredients.push(ingredient_url);
-				} else {
-					recipe_ingredients.push(ingredient[i].childNodes[0].data);
-				} // end if multiple childNodes
-			} //for ingredient lenth
+			ingredientsWithLinks(ingredient);
+			
 		}//end xhr
-		displayUnsafe(recipe_ingredients);
-	}
+		displayUnsafe(recipeIngredients);
+	};
 
 	xhr.open("GET", url, true);
 	xhr.send(null);
@@ -68,19 +78,38 @@ var getIngredients = function(url){
 
 
 var displayUnsafe = function(ingredients){
+	var ingredientsToDisplay = [];
+
+	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
 		var cut_ingredient = ingredient;
+
+		//format the ingredients so that they don't list portion amounts
 		if (parseInt(ingredient)){
 			cut_ingredient = ingredient.split(' ').slice(2).join(' ');
 			cut_ingredient = cut_ingredient.split(',')[0];
 		}
-		console.log(cut_ingredient);
+		
+		//loop through each category of the dontEat list
 		categories.forEach(function(group){
-
+			//loop through each food item in the category
 			dontEat[group].forEach(function(food){
-
+				var x = 0;
+				//if one of the ingredients contains a word that matches a risk item
 				if (cut_ingredient.match(food)){
-					document.getElementById('unsafe').innerHTML += "<li>" + food + "</li>";
+					//after double checking it hasn't already been accounted for;
+					ingredientsToDisplay.forEach(function(item){
+						if (item === food){
+							x++;
+						}
+					});
+					//if it's not already displayed, display it.
+					if (x === 0){
+						ingredientsToDisplay.push(food);
+
+
+						document.getElementById('unsafe').innerHTML += "<li>" + food + "</li>";
+					}
 				}
 			});
 		});

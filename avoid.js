@@ -39,7 +39,7 @@ var dontEat = {
 		["yeast", "tapioca"],
 
 	"alcohol":
-		["beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", "gin", "mezcal", "tequila", "brandy", "cognac"],
+		[" beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", " gin", "mezcal", "tequila", "brandy", "cognac"],
 
 	"NSAIDS":
 		["aspirin", "ibuprofen"],
