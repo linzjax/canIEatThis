@@ -16,7 +16,8 @@
   
   "content_scripts": [{
   	"matches": ["http://www.google.com/*"],
-  		"js":["avoid.js","main.js"]
+  		"js":["avoid.js","main.js"],
+  		"css":["main.css"]
   	}],
 
   "permissions": [

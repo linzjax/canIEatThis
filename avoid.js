@@ -15,7 +15,7 @@ var dontEat = {
 		["milk", "provolone", "swiss", "cheddar", "bleu", "queso", "monterey jack", "colby-jack", "goat cheese", "american cheese", "colby", "cheese", "gouda", "mozzarella", "butter", "casein", "cream", "curd", "delactosed", "lactalbumin", "lactoglobulin", "lactos", "whey", "custard", "ghee", "half & half", "ice cream", "pudding", "sour cream", "yogurt","tzatziki"],
 
 	"refined sugar":
-		["sugar", "chocolate", "soda", "sweet"],
+		["sugar", "chocolate", "soda", "sweet","vanilla"],
 
 	"modern vegetable oils":
 		["canola oil", "rapeseed oil", "soybean oil", "canola oil", "corn oil", "sunflower oil", "safflower oil", "peanut oil", "vegetable oil"],
@@ -27,7 +27,7 @@ var dontEat = {
 		['egg'],
 
 	"nuts": 
-		["acorn", "beech", "breadnut", "candlenut", "chestnut", "hazel", "almond", "nut", "walnut", "cashew", "coconut", "pistachio", "macadamia", "peanut", "soybean", "soy"],
+		["acorn", "beech", "breadnut", "candlenut", "chestnut", "hazel", "almond", "nut", "walnut", "cashew", "coconut", "pistachio", "macadamia", "peanut", "soybean", "soy","pecan"],
 
 	"seeds":
 		["chia", "flax", "sesame", "ginkgo", "cocoa", "coffee", "hemp", "poppy", "seed", "sunflower"],
