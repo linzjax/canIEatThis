@@ -8,6 +8,9 @@ var saveIngredients = function(){
 };
 
 
+//if there is no 'ingredients' class
+//accept text from the form as an alternative.
+
 
 //check if the ingredients list contains anything other than plain text.
 var ingredientsWithLinks = function(ingredient){
@@ -32,6 +35,7 @@ var ingredientsWithLinks = function(ingredient){
 	} //for ingredient length
 };
 
+//getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
   var queryInfo = {
     active: true,
@@ -45,6 +49,7 @@ var getCurrentTabUrl = function(callback) {
   });
 };
 
+//ajax request, scrape to get 'ingredients' class
 var getIngredients = function(url){
 	var xhr = new XMLHttpRequest();
 	xhr.withCredentials = true;
@@ -56,29 +61,39 @@ var getIngredients = function(url){
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(response, 'text/html');
 
-			if (!doc.querySelectorAll('li.ingredient')){
-				console.log('oh no');
-				return;
-			}
 				
 
 			var ingredient = doc.querySelectorAll('li.ingredient');
-
-			ingredientsWithLinks(ingredient);
+			if (ingredient.length === 0){
+				displayUnsafe();
+				return;
+			}
+			//does the ingredient have a link
+			else {
+				//parse out the text
+				ingredientsWithLinks(ingredient);
+				displayUnsafe();
+				return;
+			}
 			
 		}//end xhr
-		displayUnsafe(recipeIngredients);
 	};
 
 	xhr.open("GET", url, true);
 	xhr.send(null);
 };
 
+var pinterestFormatted = function(){
 
 
+//was the page pinterest formatted?
+	
+};
 
-var displayUnsafe = function(ingredients){
-	var ingredientsToDisplay = [];
+var compareIngredients = function(ingredients){
+	var finalList = [];
+	var ingredientsToDiplay = '';
+	console.log(ingredients);
 
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
@@ -86,7 +101,7 @@ var displayUnsafe = function(ingredients){
 
 		//format the ingredients so that they don't list portion amounts
 		if (parseInt(ingredient)){
-			cut_ingredient = ingredient.split(' ').slice(2).join(' ');
+			cut_ingredient = ingredient.split(' ').slice(2).join(' ').toLowerCase();
 			cut_ingredient = cut_ingredient.split(',')[0];
 		}
 		
@@ -98,26 +113,47 @@ var displayUnsafe = function(ingredients){
 				//if one of the ingredients contains a word that matches a risk item
 				if (cut_ingredient.match(food)){
 					//after double checking it hasn't already been accounted for;
-					ingredientsToDisplay.forEach(function(item){
+					finalList.forEach(function(item){
 						if (item === food){
 							x++;
 						}
 					});
 					//if it's not already displayed, display it.
 					if (x === 0){
-						ingredientsToDisplay.push(food);
-
-
-						document.getElementById('unsafe').innerHTML += "<li>" + food + "</li>";
+						finalList.push(food);
+						ingredientsToDiplay += "<li>" + food + "</li>";
 					}
 				}
 			});
 		});
 
 	});
+	if (finalList.length !== 0)
+		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
+}
 
+var displayUnsafe = function(){
 	
 
+	//if the website is not pinterest formatted
+	if (recipeIngredients.length === 0){
+		//get the copy and pasted recipe from the form.
+		document.getElementById('submit').addEventListener('click', function(event){
+			event.preventDefault();
+			ingredient = document.getElementById("recipeForm").elements[0].value;
+			ingredient = ingredient.split('\n');
+			recipeIngredients = ingredient.slice(0);
+			compareIngredients(recipeIngredients);
+		});
+	}
+	else {
+		compareIngredients(recipeIngredients);
+	}
+	
 };
+
+
+
+
 
 saveIngredients();
