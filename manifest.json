@@ -8,7 +8,7 @@
   // "icons": {...},
 
   "browser_action": {
-  	"default_popup":"test.html"
+  	"default_popup":"index.html"
   	},
 
   // Optional
@@ -16,7 +16,7 @@
   
   "content_scripts": [{
   	"matches": ["http://www.google.com/*"],
-  		"js":["avoid.js","main.js"],
+  		"js":["avoid.js","main.js","test_ajax.js"],
   		"css":["main.css"]
   	}],
 

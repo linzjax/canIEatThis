@@ -1,6 +1,21 @@
 //JUST REALIZED! If everything is hunkydory, it will never remove the form. Need to figure out a way to signify "GOOD TO GO! EAT THAT THANG".
 
 
+//get a list of ingredients.
+//put each new line into an array
+//break each line in to an array of individual words
+//pass each word through the usda api to see if it's an actual food
+//put words that are actually food
+//this is then passed through my dontEat filter
+//if they are in the dont eat filter, display those words.
+
+
+
+
+
+
+
+
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
 
@@ -51,7 +66,6 @@ var getIngredients = function(url){
 //check if the ingredients list contains anything other than plain text.
 var ingredientsWithLinks = function(ingredient){
 	for (i = 0; i < ingredient.length; i++){
-		console.log(ingredient[i].childNodes)
 		//check if there's more than just text
 		if (ingredient[i].childNodes.length > 1){
 			var ingredientWithLinks = '';
@@ -101,7 +115,7 @@ var compareIngredients = function(ingredients){
 						}
 					});
 					//if it's not already displayed, display it.
-					if (x === 0){
+					if (x === 0 && !cut_ingredient.match(exceptions[0])){
 						finalList.push(cut_ingredient);
 						ingredientsToDiplay += "<li>" + cut_ingredient + "</li>";
 					}//end if

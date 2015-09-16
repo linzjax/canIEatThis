@@ -48,16 +48,12 @@ var dontEat = {
 		["aspartame", "nutrasweet", "equal", "acesulfame-k", "sweet one", "neotame", "saccharin", "sweetâ€™n low", "sucralose", "splenda"],
 
 	"emulsifiers":
-		["arrowroot", "cornstarch", "katakuri starch", "potato starch", "sago", "tapioca", "alginin", "guar gum", "locust bean gum", "xanthan gum", "collagen", "egg whites", " furcellaran", "gelatin", "starch"]
+		["arrowroot", "cornstarch", "katakuri starch", "potato starch", "sago", "tapioca", "alginin", "guar gum", "locust bean gum", "xanthan gum", "collagen", "egg whites", " furcellaran", "gelatin", "starch","baking powder"]
 };
 
-
-var ingredient = "Salad 8 oz rotini or bow tie pasta 1 cup cherry tomatoes, diced 8 slices bacon, cooked crisp & crumbled 1 green onion, thinly sliced 2 tablespoons chopped cilantro 1 avocado, diced 1 teaspoon lime juice Dressing 1 ripe Avocado ½ fresh Lime, juiced ¼ cup chopped cilantro½ teaspoon cumin ½ teaspoon garlic powder ½ Cup Buttermilk salt & pepper to taste";
-
-
-var exceptions = ["regular cherries","sweet potatoes","huckleberries"];
+var exceptions = ["sweet potato"];
 
 
-
+var measurments = ['tsp','tbsp','cup','cups','pinch of','large','tbsp.','tsp.','c.','t.','bunch','bunches','of','']
 
 
