@@ -10,14 +10,9 @@
 //if they are in the dont eat filter, display those words.
 
 
-
-
-
-
-
-
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
+var notFoodWords = ['and','of','the','tbsp','tbsp.','tablespoon','tsp','tsp.','teaspoon','cup','lb',"½","¼",'more','plus'];
 
 //getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
@@ -47,7 +42,7 @@ var getIngredients = function(url){
 			var ingredientClasses = doc.querySelectorAll('[itemprop=ingredients]');
 			//if they are not pinterest formatted, allow them to use the form
 			if (ingredientClasses.length === 0){
-				document.getElementById('unsafe').innerHTML  = "<h2>What are the ingredients?</h2><form id='recipeForm'><textarea></textarea><br><button id='submit'>Double Check</button></form>";
+				document.getElementById('unsafe').innerHTML  = "<h2>Hm... can't find the ingredients.</h2><p>Highlight the recipe ingredients and try again.</p>";
 				displayUnsafe();
 				return;
 			}
@@ -88,20 +83,32 @@ var ingredientsWithLinks = function(ingredient){
 	} //for ingredient length
 };
 
+
+var formatIngredients = function(ingredients){
+	var cut_ingredient = ingredients;
+	//format the ingredients so that they don't list portion amounts
+	notFoodWords.forEach(function(notFood){
+		if (cut_ingredient.match(notFood))
+			console.log('in notFood: ' + notFood);
+			cut_ingredient = cut_ingredient.replace(notFood, '');
+	});
+	
+	if (parseInt(ingredient)){
+		cut_ingredient = ingredient.split(' ').slice(1).join(' ').toLowerCase();
+		cut_ingredient = cut_ingredient.split(',')[0];
+	} else {
+		cut_ingredient
+	}
+	console.log(cut_ingredient);
+}
+
 var compareIngredients = function(ingredients){
 	var finalList = [];
 	var ingredientsToDiplay = '<h2>You should leave these out:</h2>';
 
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
-		var cut_ingredient = ingredient;
-		//format the ingredients so that they don't list portion amounts
-		if (parseInt(ingredient) && ingredient.length >= 3){
-			cut_ingredient = ingredient.split(' ').slice(2).join(' ').toLowerCase();
-			cut_ingredient = cut_ingredient.split(',')[0];
-		} else {
-			cut_ingredient
-		}
+		
 		//loop through each category of the dontEat list
 		categories.forEach(function(group){
 			//loop through each food item in the category
@@ -115,8 +122,13 @@ var compareIngredients = function(ingredients){
 							x++;
 						}
 					});
+					exceptions.forEach(function(exception){
+						if (cut_ingredient.match(exception)){
+							x++;
+						}
+					});
 					//if it's not already displayed, display it.
-					if (x === 0 && !cut_ingredient.match(exceptions[0])){
+					if (x === 0){
 						finalList.push(cut_ingredient);
 						ingredientsToDiplay += "<li>" + cut_ingredient + "</li>";
 					}//end if
@@ -137,16 +149,17 @@ var displayUnsafe = function(){
 	//if the website is not pinterest formatted
 	if (recipeIngredients.length === 0){
 		//get the copy and pasted recipe from the form.
-		var selIng = document.getSelection();
-		console.log(selIng.toString());
-
-		document.getElementById('submit').addEventListener('click', function(event){
-			event.preventDefault();
-			ingredientsFromForm = document.getElementById("recipeForm").elements[0].value;
-			ingredientsFromForm = ingredientsFromForm.split('\n');
-			recipeIngredients = ingredientsFromForm.slice(0);
-			compareIngredients(recipeIngredients);
+		var highlightIngredients;
+		chrome.tabs.executeScript({
+			code: "window.getSelection().toString();"
+		}, function(selection) {
+			highlightIngredients = selection[0].split('\n').slice(0).filter(function(item){
+				if (item !== "")
+					return item;
+			});
+			compareIngredients(highlightIngredients);
 		});
+		
 	} //if ajax was successful...
 	else {
 		/*recipeIngredients.forEach(function(data){
@@ -162,5 +175,7 @@ var saveIngredients = function(){
 		getIngredients(url);
 	});
 };
+
+
 
 saveIngredients();

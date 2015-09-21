@@ -33,7 +33,7 @@ var dontEat = {
 		["chia", "flax", "sesame", "ginkgo", "cocoa", "coffee", "hemp", "poppy", "seed", "sunflower"],
 
 	"unsafe-spices":
-		["allspice", "star anise", "caraway", "cardamon", "juniper", "black pepper", "white pepper", "green peppercorns", " pink peppercorns", "vanilla bean", "anise", "annatto", "black caraway", "cumin", "celery seed", "coriander", "dill seed", "fennel seed", "fungreek", "mustard seed", "nutmeg", "capsicums", "cayenne", "chili pepper flakes", "chili powder", "curry", "paprika", "red pepper", "curry powder", "chinese 5-spice", "garam masala", "poultry seasoning", "steak seasoning"],
+		["allspice", "star anise", "caraway", "cardamon", "juniper", "black pepper", "white pepper", "green peppercorns", " pink peppercorns", "vanilla bean", "anise", "annatto", "black caraway", "cumin", "celery seed", "coriander", "dill seed", "fennel seed", "fungreek", "mustard seed", "nutmeg", "capsicums", "cayenne", "chili pepper flakes", "chipotle", "chili powder", "curry", "paprika", "red pepper", "curry powder", "chinese 5-spice", "garam masala", "poultry seasoning", "steak seasoning"],
 
 	"gluten cross-reactive foods":
 		["yeast", "tapioca"],
@@ -51,7 +51,7 @@ var dontEat = {
 		["arrowroot", "cornstarch", "katakuri starch", "potato starch", "sago", "tapioca", "alginin", "guar gum", "locust bean gum", "xanthan gum", "collagen", "egg whites", " furcellaran", "gelatin", "starch","baking powder"]
 };
 
-var exceptions = ["sweet potato"];
+var exceptions = ["sweet potato","sweet potatoes", "apple cider vinegar"];
 
 
 var measurments = ['tsp','tbsp','cup','cups','pinch of','large','tbsp.','tsp.','c.','t.','bunch','bunches','of','']
