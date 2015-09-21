@@ -24,7 +24,7 @@ var dontEat = {
 		["artificial sweeteners", "high fructose corn syrup", "monosodium glutamate (msg / e621)", "trans fat", "food dyes", "sodium sulfite (e221)", "sodium nitrate/sodium nitrite", "bha and bht (e320)", "sulfur dioxide", "potassium bromate"],
 
 	"eggs":
-		['egg'],
+		['egg','eggs'],
 
 	"nuts": 
 		["acorn", "beech", "breadnut", "candlenut", "chestnut", "hazel", "almond", "nut", "walnut", "cashew", "coconut", "pistachio", "macadamia", "peanut", "soybean", "soy","pecan"],

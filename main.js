@@ -25,13 +25,14 @@ var getCurrentTabUrl = function(callback) {
     active: true,
     currentWindow: true
   };
-  chrome.tabs.query(queryInfo, function(tabs) {
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     var tab = tabs[0];
     var url = tab.url;
     console.assert(typeof url == 'string', 'tab.url should be a string');
     callback(url);
   });
 };
+
 
 //ajax request, scrape to get 'ingredients' class
 var getIngredients = function(url){
@@ -95,7 +96,7 @@ var compareIngredients = function(ingredients){
 	ingredients.forEach(function(ingredient){
 		var cut_ingredient = ingredient;
 		//format the ingredients so that they don't list portion amounts
-		if (parseInt(ingredient) && ingredient.length > 2){
+		if (parseInt(ingredient) && ingredient.length >= 3){
 			cut_ingredient = ingredient.split(' ').slice(2).join(' ').toLowerCase();
 			cut_ingredient = cut_ingredient.split(',')[0];
 		} else {
@@ -126,6 +127,9 @@ var compareIngredients = function(ingredients){
 
 	//were there things in the final list? Update the html!
 	if (finalList.length !== 0)
+
+		
+
 		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
 };
 
@@ -133,6 +137,9 @@ var displayUnsafe = function(){
 	//if the website is not pinterest formatted
 	if (recipeIngredients.length === 0){
 		//get the copy and pasted recipe from the form.
+		var selIng = document.getSelection();
+		console.log(selIng.toString());
+
 		document.getElementById('submit').addEventListener('click', function(event){
 			event.preventDefault();
 			ingredientsFromForm = document.getElementById("recipeForm").elements[0].value;
@@ -142,6 +149,9 @@ var displayUnsafe = function(){
 		});
 	} //if ajax was successful...
 	else {
+		/*recipeIngredients.forEach(function(data){
+			prom(data);
+		});*/
 		compareIngredients(recipeIngredients);
 	}
 	
