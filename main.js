@@ -40,6 +40,7 @@ var getIngredients = function(url){
 			var doc = parser.parseFromString(response, 'text/html');
 			//if pages are pinterest formatted, they will all have li items with the class "ingredient". Convenient!
 			var ingredientClasses = doc.querySelectorAll('[itemprop=ingredients]');
+			
 			//if they are not pinterest formatted, allow them to use the form
 			if (ingredientClasses.length === 0){
 				document.getElementById('unsafe').innerHTML  = "<h2>Hm... can't find the ingredients.</h2><p>Highlight the recipe ingredients and try again.</p>";
@@ -78,18 +79,43 @@ var ingredientsWithLinks = function(ingredient){
 			recipeIngredients.push(ingredientWithLinks);
 		//if it's all good and there are no links, go ahead
 		} else if (ingredient[i].childNodes.length === 1) {
+			console.log(ingredient[i].childNodes[0].childNodes[0])
 			recipeIngredients.push(ingredient[i].childNodes[0].data);
 		} // end if multiple childNodes
 	} //for ingredient length
 };
 
 
-var formatIngredients = function(ingredients){
-	var cut_ingredient = ingredients;
+
+
+
+
+
+
+
+//************FORMATTING IS NEW ********************/
+
+
+var formatIngredients = function(ingredient){
+	console.log(ingredient);
+	if (!ingredient.match(":")){
+
+		var ingredient_array = ingredient.split('\n').join(' ').split(',')//.join(' ').split('.').join(' ');
+		if (ingredient_array.length > 1)
+			console.log(ingredient_array);
+	}
+
+
+
+
+
+
+
+	var cut_ingredient = ingredient;
 	//format the ingredients so that they don't list portion amounts
 	notFoodWords.forEach(function(notFood){
 		if (cut_ingredient.match(notFood))
-			console.log('in notFood: ' + notFood);
+			
 			cut_ingredient = cut_ingredient.replace(notFood, '');
 	});
 	
@@ -99,15 +125,38 @@ var formatIngredients = function(ingredients){
 	} else {
 		cut_ingredient
 	}
-	console.log(cut_ingredient);
+
 }
+
+
+
+
+
+
+
+
+
+
 
 var compareIngredients = function(ingredients){
 	var finalList = [];
 	var ingredientsToDiplay = '<h2>You should leave these out:</h2>';
-
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
+		formatIngredients(ingredient);
+		var cut_ingredient = ingredient;
+
+
+
+
+
+
+
+
+
+
+
+
 		
 		//loop through each category of the dontEat list
 		categories.forEach(function(group){
