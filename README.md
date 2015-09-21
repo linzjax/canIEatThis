@@ -1,4 +1,4 @@
-# canIEatThis
+# Can I Eat This
 A chrome extension that analyzes recipe ingredients to determine whether or not they should be left out according to your diet specifications.
 
 ---
