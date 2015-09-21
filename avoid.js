@@ -3,7 +3,7 @@ var dontEat = {
 		["ashwagandha", "bell pepper", "bush tomato", "cape gooseberry", "ground cherr", "cocona", "eggplant", "garden huckleberry", "goji berriy", "wolfberry", "hot peppers","chili", "chili pepper", "jalapeno", "habanero", "red pepper", "cayenne", "kutjera", "naranjilla", "paprika", "pepino", "pimento", "potato", "tamarillo", "tomatillo", "tomato", "pepper"],
 
 	"grains":
-		["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "sorghum", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita"],
+		["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "sorghum", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita","bread"],
 
 	"gluten-free grains":
 		["corn", "cornflour", "cornmeal", "millet", "rice", "wild rice", "teff", "sorghum", "buckwheat", "quinoa", "oats", "oatmeal", "popcorn"],
@@ -39,7 +39,7 @@ var dontEat = {
 		["yeast", "tapioca"],
 
 	"alcohol":
-		[" beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", " gin", "mezcal", "tequila", "brandy", "cognac"],
+		[" beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", " gin", "mezcal", "tequila", "brandy", "cognac", "margarita"],
 
 	"NSAIDS":
 		["aspirin", "ibuprofen"],

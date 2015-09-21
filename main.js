@@ -12,7 +12,7 @@
 
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
-var notFoodWords = ['and','of','the','tbsp','tbsp.','tablespoon','tsp','tsp.','teaspoon','cup','lb',"½","¼",'more','plus'];
+var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tsp ',' tsp. ',' teaspoon ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly '];
 
 //getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
@@ -61,25 +61,13 @@ var getIngredients = function(url){
 };
 
 //check if the ingredients list contains anything other than plain text.
+//**THIS IS A MESS! CLEAN THIS UP!!!**//
 var ingredientsWithLinks = function(ingredient){
 
 		for (i = 0; i < ingredient.length; i++){
 			//check if there's more than just text
 			if (ingredient[i].childNodes.length >= 1){
 				var ingredientWithLinks = '';
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				for (j = 0; j < ingredient[i].childNodes.length; j++){
 					
@@ -117,11 +105,11 @@ var ingredientsWithLinks = function(ingredient){
 						ingredientWithLinks += ingredient[i].childNodes[j].data;
 					} //end !text
 				}//end for(j)
-				console.log(ingredientWithLinks);
+				
 				recipeIngredients.push(ingredientWithLinks);
 			//if it's all good and there are no links, go ahead
 			} else if (ingredient[i].childNodes.length === 1) {
-				//console.log(ingredient[i].childNodes[0].childNodes[0])
+				
 				recipeIngredients.push(ingredient[i].childNodes[0].data);
 			} // end if multiple childNodes
 		} //for ingredient length
@@ -129,44 +117,48 @@ var ingredientsWithLinks = function(ingredient){
 
 
 
-
-
-
-
-
-
 //************FORMATTING IS NEW ********************/
 
 
 var formatIngredients = function(ingredient){
-	// console.log(ingredient);
-	// if (!ingredient.match(":")){
-
-	// 	var ingredient_array = ingredient.split('\n').join(' ').split(',')//.join(' ').split('.').join(' ');
-	// 	if (ingredient_array.length > 1)
-	// 		console.log(ingredient_array);
-	// }
-
-
-
-
-
-
-
-	var cut_ingredient = ingredient;
-	//format the ingredients so that they don't list portion amounts
-	notFoodWords.forEach(function(notFood){
-		if (cut_ingredient.match(notFood))
-			
-			cut_ingredient = cut_ingredient.replace(notFood, '');
-	});
 	
-	if (parseInt(ingredient)){
-		cut_ingredient = ingredient.split(' ').slice(1).join(' ').toLowerCase();
-		cut_ingredient = cut_ingredient.split(',')[0];
+	var cut_ingredient;
+
+	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(')//.join(' ').split('.').join(' ');
+		//console.log(ingredient_array);
+	if (ingredient_array.length > 1){
+		cut_ingredient = ' ' + ingredient_array.shift();
+		ingredient_array = ingredient_array[0].split(')');
+	
+		cut_ingredient += ' ';
+		cut_ingredient += ingredient_array.pop();
+		ingredient_array = cut_ingredient;
+		//console.log(cut_ingredient)
 	} else {
-		cut_ingredient
+		cut_ingredient = ' ' + ingredient_array.join(' ');
+		ingredient_array = cut_ingredient;
 	}
+	if (parseInt(ingredient_array)){
+		cut_ingredient = ingredient_array.split(' ').filter(function(word){
+			if (!parseInt(word))
+				return word;
+		});
+		cut_ingredient = ' ' + cut_ingredient.join(' ');
+		ingredient_array = cut_ingredient;
+	}
+	if (!ingredient_array.match(":")){
+		cut_ingredient = ingredient_array.split(",")[0]
+	} else if (ingredient_array.match(':')) {
+		cut_ingredient = ingredient_array.split(':')[1];
+		
+		
+	}
+	notFoodWords.forEach(function(notFood){
+		cut_ingredient = cut_ingredient.replace(notFood, ' ');
+	});
+
+
+	return(cut_ingredient);
 
 }
 
@@ -185,19 +177,7 @@ var compareIngredients = function(ingredients){
 	var ingredientsToDiplay = '<h2>You should leave these out:</h2>';
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
-		formatIngredients(ingredient);
-		var cut_ingredient = ingredient;
-
-
-
-
-
-
-
-
-
-
-
+		var cut_ingredient = formatIngredients(ingredient);
 
 		
 		//loop through each category of the dontEat list
