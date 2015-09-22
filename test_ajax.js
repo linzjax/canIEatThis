@@ -1,6 +1,6 @@
 "use strict";
 
-var notFoodWords = ['and','of','the','tbsp','tablespoon','tsp','teaspoon','cup','lb',"½","¼",'more','plus'];
+
 
 var isItFood = function(searchItem){
 	return new Promise(function(resolve, reject){

@@ -39,7 +39,7 @@ var dontEat = {
 		["yeast", "tapioca"],
 
 	"alcohol":
-		[" beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", " gin", "mezcal", "tequila", "brandy", "cognac", "margarita"],
+		[" beer", "wine", "whiskey", "vodka", "liquor", "scotch", "bourbon", "sake", "ale", "lager", "cider", "mead", "absinthe", " gin ", "mezcal", "tequila", "brandy", "cognac", "margarita"],
 
 	"NSAIDS":
 		["aspirin", "ibuprofen"],
@@ -54,6 +54,7 @@ var dontEat = {
 var exceptions = ["sweet potato","sweet potatoes", "apple cider vinegar"];
 
 
-var measurments = ['tsp','tbsp','cup','cups','pinch of','large','tbsp.','tsp.','c.','t.','bunch','bunches','of','']
+var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tsp ',' tsp. ',' teaspoon ',' teaspoons ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly ', ' &#xBD; ', ' &#xBC; ', ' gram ', ' grams ', ' lightly ', ' cooked ', ' pinch ', ' c. ', ' t. ', ' bunch ',' bunches ', ' & ',' oz ',' can ', ' cans ', ' diced ', ' gr ', '/'];
+
 
 

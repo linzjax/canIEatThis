@@ -12,7 +12,7 @@
 
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
-var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tsp ',' tsp. ',' teaspoon ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly '];
+
 
 //getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
@@ -61,58 +61,32 @@ var getIngredients = function(url){
 };
 
 //check if the ingredients list contains anything other than plain text.
-//**THIS IS A MESS! CLEAN THIS UP!!!**//
-var ingredientsWithLinks = function(ingredient){
-
-		for (i = 0; i < ingredient.length; i++){
-			//check if there's more than just text
-			if (ingredient[i].childNodes.length >= 1){
-				var ingredientWithLinks = '';
-
-				for (j = 0; j < ingredient[i].childNodes.length; j++){
-					
-					//check if it's not text
-
-					if(ingredient[i].childNodes[j].childNodes.length !== 0) {
-
-						if (!ingredient[i].childNodes[j].childNodes[0].text && !ingredient[i].childNodes[j].childNodes[0].data){
-
-							
-							ingredientWithLinks += '';
-							//if it's a link, get it's text
-
-							
-						} else if (!ingredient[i].childNodes[j].childNodes[0].data){
-							
-							ingredientWithLinks += ingredient[i].childNodes[j].childNodes[0].text;
-						}else {
-							//if it's text, pull out the data
-							
-							ingredientWithLinks += ingredient[i].childNodes[j].childNodes[0].data;
-						} //end !text
-					}
-					
-					if (!ingredient[i].childNodes[j].text && !ingredient[i].childNodes[j].data){
-						ingredientWithLinks += '';
-
-					} else if (!ingredient[i].childNodes[j].data){
-						//if it's a link, get it's text
-						ingredientWithLinks += ingredient[i].childNodes[j].text;
-
-					} else{
-						//if it's text, pull out the data
-
-						ingredientWithLinks += ingredient[i].childNodes[j].data;
-					} //end !text
-				}//end for(j)
-				
-				recipeIngredients.push(ingredientWithLinks);
-			//if it's all good and there are no links, go ahead
-			} else if (ingredient[i].childNodes.length === 1) {
-				
-				recipeIngredients.push(ingredient[i].childNodes[0].data);
-			} // end if multiple childNodes
-		} //for ingredient length
+var ingredientsWithLinks = function(ingredients, fullText){
+	var queue = [];
+	var results = [];
+	var v;
+	for (var x = 0; x < ingredients.length; x++){
+		queue.push(ingredients[x])
+	}
+	while (queue.length > 0){
+		v = queue.shift();
+		if (v.childNodes.length) {
+			for (var j = 0; j < v.childNodes.length; j++)
+				queue.unshift(v.childNodes[j]);		
+		} else {
+			console.log(v);
+			results.unshift(v);
+		}
+	}
+	results.forEach(function(item){
+		if (item.data) {
+			thing = item.data.replace('\n','');
+		} else if (item.text) {
+			thing = item.text.replace('\n','');
+		}
+		if (thing.match(/\w/))
+			recipeIngredients.push(thing);
+	});
 };
 
 
@@ -147,11 +121,12 @@ var formatIngredients = function(ingredient){
 		ingredient_array = cut_ingredient;
 	}
 	if (!ingredient_array.match(":")){
-		cut_ingredient = ingredient_array.split(",")[0]
+		cut_ingredient = ingredient_array.split(",")[0];
 	} else if (ingredient_array.match(':')) {
 		cut_ingredient = ingredient_array.split(':')[1];
-		
-		
+	}
+	if (cut_ingredient.match('-')){
+		cut_ingredient = cut_ingredient.split('-')[0];
 	}
 	notFoodWords.forEach(function(notFood){
 		cut_ingredient = cut_ingredient.replace(notFood, ' ');
