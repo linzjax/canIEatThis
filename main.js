@@ -5,6 +5,7 @@ var categories = Object.keys(dontEat);
 var recipeIngredients = [];
 
 
+
 //getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
   var queryInfo = {
@@ -41,6 +42,7 @@ var getIngredients = function(url){
 			//if the page is pinterest formatted
 			else {
 				//check and see if there are any links
+				
 				ingredientsWithLinks(ingredientClasses);
 				displayUnsafe();
 				return;
@@ -172,6 +174,8 @@ var compareIngredients = function(ingredients){
 	//were there things in the final list? Update the html!
 	if (finalList.length !== 0)
 		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
+	if (finalList.length === 0 && recipeIngredients !== 0)
+		document.getElementById('unsafe').innerHTML = "<h2>Hey, good news:</h2><p>This recipe is totally safe to eat!</p>"
 };
 
 var displayUnsafe = function(){
@@ -182,6 +186,7 @@ var displayUnsafe = function(){
 		chrome.tabs.executeScript({
 			code: "window.getSelection().toString();"
 		}, function(selection) {
+			
 			highlightIngredients = selection[0].split('\n').slice(0).filter(function(item){
 				
 				if (item !== "")
