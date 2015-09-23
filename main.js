@@ -1,15 +1,6 @@
 //JUST REALIZED! If everything is hunkydory, it will never remove the form. Need to figure out a way to signify "GOOD TO GO! EAT THAT THANG".
 
 
-//get a list of ingredients.
-//put each new line into an array
-//break each line in to an array of individual words
-//pass each word through the usda api to see if it's an actual food
-//put words that are actually food
-//this is then passed through my dontEat filter
-//if they are in the dont eat filter, display those words.
-
-
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
 
@@ -74,7 +65,7 @@ var ingredientsWithLinks = function(ingredients, fullText){
 			for (var j = 0; j < v.childNodes.length; j++)
 				queue.unshift(v.childNodes[j]);		
 		} else {
-			console.log(v);
+			
 			results.unshift(v);
 		}
 	}
@@ -99,15 +90,17 @@ var formatIngredients = function(ingredient){
 	var cut_ingredient;
 
 	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(')//.join(' ').split('.').join(' ');
-		//console.log(ingredient_array);
+		
 	if (ingredient_array.length > 1){
 		cut_ingredient = ' ' + ingredient_array.shift();
 		ingredient_array = ingredient_array[0].split(')');
+
 	
 		cut_ingredient += ' ';
 		cut_ingredient += ingredient_array.pop();
+
 		ingredient_array = cut_ingredient;
-		//console.log(cut_ingredient)
+		
 	} else {
 		cut_ingredient = ' ' + ingredient_array.join(' ');
 		ingredient_array = cut_ingredient;
@@ -125,26 +118,19 @@ var formatIngredients = function(ingredient){
 	} else if (ingredient_array.match(':')) {
 		cut_ingredient = ingredient_array.split(':')[1];
 	}
-	if (cut_ingredient.match('-')){
-		cut_ingredient = cut_ingredient.split('-')[0];
+	if (cut_ingredient.match(' - ')){
+		cut_ingredient = cut_ingredient.split(' - ')[0];
 	}
 	notFoodWords.forEach(function(notFood){
 		cut_ingredient = cut_ingredient.replace(notFood, ' ');
 	});
+	console.log(cut_ingredient);
+	
 
 
 	return(cut_ingredient);
 
-}
-
-
-
-
-
-
-
-
-
+};
 
 
 var compareIngredients = function(ingredients){
@@ -185,9 +171,6 @@ var compareIngredients = function(ingredients){
 
 	//were there things in the final list? Update the html!
 	if (finalList.length !== 0)
-
-		
-
 		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
 };
 
@@ -200,6 +183,7 @@ var displayUnsafe = function(){
 			code: "window.getSelection().toString();"
 		}, function(selection) {
 			highlightIngredients = selection[0].split('\n').slice(0).filter(function(item){
+				
 				if (item !== "")
 					return item;
 			});

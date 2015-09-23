@@ -3,10 +3,10 @@ var dontEat = {
 		["ashwagandha", "bell pepper", "bush tomato", "cape gooseberry", "ground cherr", "cocona", "eggplant", "garden huckleberry", "goji berriy", "wolfberry", "hot peppers","chili", "chili pepper", "jalapeno", "habanero", "red pepper", "cayenne", "kutjera", "naranjilla", "paprika", "pepino", "pimento", "potato", "tamarillo", "tomatillo", "tomato", "pepper"],
 
 	"grains":
-		["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "sorghum", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita","bread"],
+		["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "sorghum", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita","bread","flour"],
 
 	"gluten-free grains":
-		["corn", "cornflour", "cornmeal", "millet", "rice", "wild rice", "teff", "sorghum", "buckwheat", "quinoa", "oats", "oatmeal", "popcorn"],
+		["corn", "cornflour", "cornmeal", "millet", "rice", "wild rice", "teff", "sorghum", "buckwheat", "quinoa", "oats", "oatmeal", "popcorn","gluten-free flour"],
 
 	"legumes":
 		["alfalfa", "bean", "pea", "chickpeas", "fava coceira", "frijole negro", "lentil", "lespedeza", "licorice", "peanut", "red clover", "soy", "white vlover"],
@@ -51,7 +51,7 @@ var dontEat = {
 		["arrowroot", "cornstarch", "katakuri starch", "potato starch", "sago", "tapioca", "alginin", "guar gum", "locust bean gum", "xanthan gum", "collagen", "egg whites", " furcellaran", "gelatin", "starch","baking powder"]
 };
 
-var exceptions = ["sweet potato","sweet potatoes", "apple cider vinegar"];
+var exceptions = ["sweet potato","sweet potatoes", "apple cider vinegar","butternut"];
 
 
 var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tsp ',' tsp. ',' teaspoon ',' teaspoons ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly ', ' &#xBD; ', ' &#xBC; ', ' gram ', ' grams ', ' lightly ', ' cooked ', ' pinch ', ' c. ', ' t. ', ' bunch ',' bunches ', ' & ',' oz ',' can ', ' cans ', ' diced ', ' gr ', '/'];
