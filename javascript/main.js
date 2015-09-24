@@ -1,6 +1,3 @@
-//JUST REALIZED! If everything is hunkydory, it will never remove the form. Need to figure out a way to signify "GOOD TO GO! EAT THAT THANG".
-
-
 var categories = Object.keys(dontEat);
 var recipeIngredients = [];
 
@@ -126,12 +123,7 @@ var formatIngredients = function(ingredient){
 	notFoodWords.forEach(function(notFood){
 		cut_ingredient = cut_ingredient.replace(notFood, ' ');
 	});
-	console.log(cut_ingredient);
-	
-
-
 	return(cut_ingredient);
-
 };
 
 
@@ -172,10 +164,15 @@ var compareIngredients = function(ingredients){
 	});//end ingredients.forEach
 
 	//were there things in the final list? Update the html!
+	document.getElementById('sendRecipe').addEventListener('click', function(e){
+		chrome.storage.sync.set({recipe: recipeIngredients});
+
+	});
+	// console.log(recipeIngredients);
 	if (finalList.length !== 0)
 		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
 	if (finalList.length === 0 && recipeIngredients !== 0)
-		document.getElementById('unsafe').innerHTML = "<h2>Hey, good news:</h2><p>This recipe is totally safe to eat!</p>"
+		document.getElementById('unsafe').innerHTML = "<h2>Hey, good news:</h2><p>This recipe is totally safe to eat!</p>";
 };
 
 var displayUnsafe = function(){
@@ -212,5 +209,5 @@ var saveIngredients = function(){
 };
 
 
-
 saveIngredients();
+
