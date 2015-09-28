@@ -21,17 +21,16 @@ var getCurrentTabUrl = function(callback) {
 //ajax request, scrape to get 'ingredients' class
 var getIngredients = function(url){
 	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
 	xhr.onreadystatechange = function(data){
-		if(xhr.readyState === 4 && xhr.status === 200){	
+		if(xhr.readyState === 4 && xhr.status === 200){
 			var response = xhr.responseText;
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(response, 'text/html');
 			//if pages are pinterest formatted, they will all have li items with the class "ingredient". Convenient!
-			var ingredientClasses = doc.querySelectorAll('[itemprop=ingredients]');
+			var scrapedIngredients = doc.querySelectorAll('[itemprop=ingredients]');
 			
 			//if they are not pinterest formatted, allow them to use the form
-			if (ingredientClasses.length === 0){
+			if (scrapedIngredients.length === 0){
 				document.getElementById('unsafe').innerHTML  = "<h2>Hm... can't find the ingredients.</h2><p>Highlight the recipe ingredients and try again.</p>";
 				displayUnsafe();
 				return;
@@ -39,8 +38,7 @@ var getIngredients = function(url){
 			//if the page is pinterest formatted
 			else {
 				//check and see if there are any links
-				
-				ingredientsWithLinks(ingredientClasses);
+				deepSearch(scrapedIngredients);
 				displayUnsafe();
 				return;
 			}
@@ -51,31 +49,34 @@ var getIngredients = function(url){
 };
 
 //check if the ingredients list contains anything other than plain text.
-var ingredientsWithLinks = function(ingredients, fullText){
+var deepSearch = function(ingredients, fullText){
 	var queue = [];
 	var results = [];
 	var v;
+	
 	for (var x = 0; x < ingredients.length; x++){
 		queue.push(ingredients[x])
 	}
+
 	while (queue.length > 0){
-		v = queue.shift();
-		if (v.childNodes.length) {
-			for (var j = 0; j < v.childNodes.length; j++)
-				queue.unshift(v.childNodes[j]);		
+		currentItem = queue.shift();
+
+		if (currentItem.childNodes.length) {
+			for (var j = 0; j < currentItem.childNodes.length; j++)
+				queue.unshift(currentItem.childNodes[j]);		
 		} else {
 			
-			results.unshift(v);
+			results.unshift(currentItem);
 		}
 	}
 	results.forEach(function(item){
 		if (item.data) {
-			thing = item.data.replace('\n','');
+			result = item.data.replace('\n','');
 		} else if (item.text) {
-			thing = item.text.replace('\n','');
+			result = item.text.replace('\n','');
 		}
-		if (thing.match(/\w/))
-			recipeIngredients.push(thing);
+		if (result.match(/\w/))
+			recipeIngredients.push(result);
 	});
 };
 
@@ -85,10 +86,8 @@ var ingredientsWithLinks = function(ingredients, fullText){
 
 
 var formatIngredients = function(ingredient){
-	
 	var cut_ingredient;
-
-	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(')//.join(' ').split('.').join(' ');
+	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(');
 		
 	if (ingredient_array.length > 1){
 		cut_ingredient = ' ' + ingredient_array.shift();
@@ -133,7 +132,6 @@ var compareIngredients = function(ingredients){
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
 		var cut_ingredient = formatIngredients(ingredient);
-
 		
 		//loop through each category of the dontEat list
 		categories.forEach(function(group){
@@ -168,10 +166,9 @@ var compareIngredients = function(ingredients){
 		chrome.storage.sync.set({recipe: recipeIngredients});
 
 	});
-	// console.log(recipeIngredients);
 	if (finalList.length !== 0)
 		document.getElementById('unsafe').innerHTML = ingredientsToDiplay;
-	if (finalList.length === 0 && recipeIngredients !== 0)
+	if (finalList.length === 0 && recipeIngredients.length !== 0)
 		document.getElementById('unsafe').innerHTML = "<h2>Hey, good news:</h2><p>This recipe is totally safe to eat!</p>";
 };
 
@@ -183,9 +180,7 @@ var displayUnsafe = function(){
 		chrome.tabs.executeScript({
 			code: "window.getSelection().toString();"
 		}, function(selection) {
-			
 			highlightIngredients = selection[0].split('\n').slice(0).filter(function(item){
-				
 				if (item !== "")
 					return item;
 			});
@@ -194,9 +189,6 @@ var displayUnsafe = function(){
 		
 	} //if ajax was successful...
 	else {
-		/*recipeIngredients.forEach(function(data){
-			prom(data);
-		});*/
 		compareIngredients(recipeIngredients);
 	}
 	
