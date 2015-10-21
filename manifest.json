@@ -8,11 +8,16 @@
   // "icons": {...},
 
   "browser_action": {
-  	"default_popup":"popup.html"
-  	},
+  	"default_popup":"popup.html",
+    "default_icon": "noun_24.png"
+  },
 
   // Optional
   "author": "Lindsey Jacks",
+
+  "icons": { "16": "noun_24.png",
+           "48": "noun_24.png",
+          "128": "noun_24.png" },
   
   "content_scripts": [{
   	"matches": ["http://www.google.com/*"],

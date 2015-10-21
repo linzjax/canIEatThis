@@ -1,0 +1,19 @@
+{
+  "name": "canieatthis",
+  "version": "1.0.0",
+  "description": "analyze recipes according to your dietary restrictions",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log('hello world')"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linzjax/canIEatThis.git"
+  },
+  "author": "Lindsey Jacks",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/linzjax/canIEatThis/issues"
+  },
+  "homepage": "https://github.com/linzjax/canIEatThis#readme"
+}
