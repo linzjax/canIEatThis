@@ -26,7 +26,7 @@ var dontEat = {
 	"eggs":
 		['egg','eggs'],
 
-	"nuts": 
+	"nuts":
 		["acorn", "beech", "breadnut", "candlenut", "chestnut", "hazel", "almond", "nut", "walnut", "cashew", "coconut", "pistachio", "macadamia", "peanut", "soybean", "soy","pecan"],
 
 	"seeds":
