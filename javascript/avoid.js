@@ -87,28 +87,26 @@ var diets = {
 
 var chooseDiet = function(){
 	new Promise(function(reject, resolve){
-		var chosenDiet;
 		chrome.storage.sync.get({
 			currentDiet: 'Paleo',
 		}, function(items){
 			Object.keys(diets).forEach(function(diet){
 				if (items.currentDiet === diet){
-					chosenDiet = diets[diet];
+					resolve(diets[diet]);
+				} else {
+					reject("error");
 				}
 			});
 		});
-		if (chosenDiet){
-			resolve(chosenDiet);
-		} else {
-			reject("error");
-		}
 	}).then(function(result){
-		console.log(result);
+		console.log('yay!',result);
+	}, function(error){
+		console.log('booo', error);
 	});
 };
 
 var dontEat = chooseDiet();
-console.log(dontEat);
+//console.log(dontEat);
 
 
 
