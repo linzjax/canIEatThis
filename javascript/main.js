@@ -23,7 +23,11 @@ var getIngredients = function(url){
 			var parser = new DOMParser();
 			var doc = parser.parseFromString(response, 'text/html');
 			//if pages are pinterest formatted, they will all have li items with the class "ingredient". Convenient!
-			var scrapedIngredients = doc.querySelectorAll('[itemprop=ingredients]');
+			var scrapedIngredients = doc.querySelectorAll('itemprop.ingredients');
+
+			if (scrapedIngredients.length === 0){
+				scrapedIngredients = doc.querySelectorAll('li.ingredient');
+			}
 			
 			//if they are not pinterest formatted, allow them to use the form
 			if (scrapedIngredients.length === 0){
