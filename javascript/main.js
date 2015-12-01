@@ -88,51 +88,26 @@ var deepSearch = function(ingredients, fullText){
 
 
 var formatIngredients = function(ingredient){
-	console.log(ingredient);
+	//wait, why am I splitting by new line, if I'm formatting each individual ingredient?
+	var queue;
+	ingredient = ingredient.toLowerCase();
 
-
-
-
-
-
-
-	var cut_ingredient;
-	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(');
-		
-	if (ingredient_array.length > 1){
-		cut_ingredient = ' ' + ingredient_array.shift();
-		ingredient_array = ingredient_array[0].split(')');
-
+	if (ingredient.match('\\(')){
+		ingredient = ingredient.split('(');
+		ingredient = ingredient.shift() + ' ' + ingredient[0].split(')').pop();
+	}
 	
-		cut_ingredient += ' ';
-		cut_ingredient += ingredient_array.pop();
 
-		ingredient_array = cut_ingredient;
-		
-	} else {
-		cut_ingredient = ' ' + ingredient_array.join(' ');
-		ingredient_array = cut_ingredient;
-	}
-	if (parseInt(ingredient_array)){
-		cut_ingredient = ingredient_array.split(' ').filter(function(word){
-			if (!parseInt(word));
-				return word;
-		});
-		cut_ingredient = ' ' + cut_ingredient.join(' ');
-		ingredient_array = cut_ingredient;
-	}
-	if (!ingredient_array.match(":")){
-		cut_ingredient = ingredient_array.split(",")[0];
-	} else if (ingredient_array.match(':')) {
-		cut_ingredient = ingredient_array.split(':')[1];
-	}
-	if (cut_ingredient.match(' - ')){
-		cut_ingredient = cut_ingredient.split(' - ')[0];
-	}
+	ingredient = ingredient.split(' ');
+	ingredient = ingredient.filter(function(word){
+		if (word.match(/[A-Za-z]+/g))
+			return word;
+	}).join(' ');
+
 	notFoodWords.forEach(function(notFood){
-		cut_ingredient = cut_ingredient.replace(notFood, ' ');
+		ingredient = ingredient.replace(notFood, ' ');
 	});
-	return cut_ingredient;
+	return ingredient;
 };
 
 
