@@ -1,7 +1,7 @@
 var exceptions = ["sweet potato","sweet potatoes", "apple cider vinegar","butternut","unsweet"];
 
 
-var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tablespoons ',' tsp ',' tsp. ',' teaspoon ',' teaspoons ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly ', ' &#xBD; ', ' &#xBC; ', ' gram ', ' grams ', ' lightly ', ' cooked ', ' pinch ', ' c. ', ' t. ', ' bunch ',' bunches ', ' & ',' oz ',' can ', ' cans ', ' diced ', ' gr ', '/'];
+var notFoodWords = [' and ',' of ',' the ',' tbsp ',' tbsp. ', ' tbs ', ' tbs. ',' tablespoon ',' tablespoons ',' tsp ',' tsp. ',' teaspoon ',' teaspoons ',' cup ',' lb '," &frac14; "," &frac12; ",' more ',' plus ', ' can ', ' large ',' small ',' medium ', ' frozen ',' cups ', ' salt ',' ground ', ' fresh ', ' freshly ', ' &#xBD; ', ' &#xBC; ', ' gram ', ' grams ', ' lightly ', ' cooked ', ' pinch ', ' c. ', ' t. ', ' bunch ',' bunches ', ' & ',' oz ',' can ', ' cans ', ' diced ', ' gr ', '/', 'ounces', 'ounce','grated'];
 
 var categories = {
 	"alcohol":
@@ -93,8 +93,7 @@ var diets = {
 	"refined sugar",
 	"modern vegetable oils",
 	"processed food chemicals",
-	"alcohol",
-	"starch"],
+	"alcohol"],
 
 	'AIPPaleo': 
 	["nightshades",

@@ -55,7 +55,7 @@ var deepSearch = function(ingredients, fullText){
 	var v;
 	
 	for (var x = 0; x < ingredients.length; x++){
-		queue.push(ingredients[x])
+		queue.push(ingredients[x]);
 	}
 
 	while (queue.length > 0){
@@ -63,17 +63,19 @@ var deepSearch = function(ingredients, fullText){
 
 		if (currentItem.childNodes.length) {
 			for (var j = 0; j < currentItem.childNodes.length; j++)
-				queue.unshift(currentItem.childNodes[j]);		
+				queue.unshift(currentItem.childNodes[j]);
 		} else {
-			
 			results.unshift(currentItem);
 		}
 	}
+
 	results.forEach(function(item){
 		if (item.data) {
 			result = item.data.replace('\n','');
 		} else if (item.text) {
 			result = item.text.replace('\n','');
+		} else {
+			return;
 		}
 		if (result.match(/\w/))
 			recipeIngredients.push(result);
@@ -82,10 +84,18 @@ var deepSearch = function(ingredients, fullText){
 
 
 
-//************FORMATTING IS NEW ********************/
+//************FORMATTING ********************/
 
 
 var formatIngredients = function(ingredient){
+	console.log(ingredient);
+
+
+
+
+
+
+
 	var cut_ingredient;
 	var ingredient_array = ingredient.toLowerCase().split('\n').join(' ').split('(');
 		
@@ -105,7 +115,7 @@ var formatIngredients = function(ingredient){
 	}
 	if (parseInt(ingredient_array)){
 		cut_ingredient = ingredient_array.split(' ').filter(function(word){
-			if (!parseInt(word))
+			if (!parseInt(word));
 				return word;
 		});
 		cut_ingredient = ' ' + cut_ingredient.join(' ');
@@ -122,7 +132,7 @@ var formatIngredients = function(ingredient){
 	notFoodWords.forEach(function(notFood){
 		cut_ingredient = cut_ingredient.replace(notFood, ' ');
 	});
-	return(cut_ingredient);
+	return cut_ingredient;
 };
 
 
@@ -133,7 +143,7 @@ var compareIngredients = function(ingredients){
 	ingredients.forEach(function(ingredient){
 		var cut_ingredient = formatIngredients(ingredient);
 		//loop through each category of the dontEat list
-		Object.keys(categories).forEach(function(group){
+		Object.keys(dontEat).forEach(function(group){
 			//loop through each food item in the category
 			dontEat[group].forEach(function(food){
 				var x = 0;
@@ -202,23 +212,15 @@ var saveIngredients = function(){
 
 chooseDiet.then(
 	function(result){
-		currentDiet = result;
-		return result;
-	}, function(error){
-		console.log('booo', error);
-	}
-).then(function(result){
-	Object.keys(diets).forEach(function(diet){
-		if (diet === result){
-			dontEat = diets[diet];
-			dontEat = dietBuilder('dontEat', dontEat);
-		}
-	});
+		Object.keys(diets).forEach(function(diet){
+			if (diet === result){
+				dontEat = diets[diet];
+				dontEat = dietBuilder('dontEat', dontEat);
+			}
+		});
 	return dontEat;
 }, function(err){
 	console.log('uuuugh', err);
-}).then(function(stuff){
-	var categories = Object.keys(stuff);
 }).then(function(){
 	saveIngredients();
 });
