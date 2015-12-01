@@ -1,8 +1,4 @@
-var categories = Object.keys(dontEat);
 var recipeIngredients = [];
-
-
-
 //getting the url to put into the xhrequest
 var getCurrentTabUrl = function(callback) {
   var queryInfo = {
@@ -132,9 +128,8 @@ var compareIngredients = function(ingredients){
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
 		var cut_ingredient = formatIngredients(ingredient);
-		
 		//loop through each category of the dontEat list
-		categories.forEach(function(group){
+		Object.keys(categories).forEach(function(group){
 			//loop through each food item in the category
 			dontEat[group].forEach(function(food){
 				var x = 0;
@@ -201,5 +196,27 @@ var saveIngredients = function(){
 };
 
 
-saveIngredients();
+chooseDiet.then(
+	function(result){
+		currentDiet = result;
+		return result;
+	}, function(error){
+		console.log('booo', error);
+	}
+).then(function(result){
+	Object.keys(diets).forEach(function(diet){
+		if (diet === result){
+			dontEat = diets[diet];
+			dontEat = dietBuilder('dontEat', dontEat);
+		}
+	});
+	return dontEat;
+}, function(err){
+	console.log('uuuugh', err);
+}).then(function(stuff){
+	var categories = Object.keys(stuff);
+}).then(function(){
+	saveIngredients();
+});
+
 
