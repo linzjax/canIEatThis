@@ -107,6 +107,7 @@ var formatIngredients = function(ingredient){
 	notFoodWords.forEach(function(notFood){
 		ingredient = ingredient.replace(notFood, ' ');
 	});
+
 	return ingredient;
 };
 
@@ -193,6 +194,7 @@ chooseDiet.then(
 				dontEat = dietBuilder('dontEat', dontEat);
 			}
 		});
+	console.log(result);
 	return dontEat;
 }, function(err){
 	console.log('uuuugh', err);

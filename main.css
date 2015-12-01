@@ -1,4 +1,8 @@
-body {
+* {
+	box-sizing: border-box;
+}
+
+.pop-up-container {
 	width: 250px;
 	font-size: 15px;
 	margin: 0;
@@ -25,3 +29,45 @@ body {
 #unsafe li {
 	padding-top: 5px;
 }
+
+.options-container {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.form {
+	width: 70%;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.form h2 {
+	font-size: 50px;
+}
+
+select {
+	-webkit-appearance:none;
+	  outline:none;
+	  background:white;
+	  width:100%;
+	  padding:10px;
+	  border-color: grey;
+	  font-size:1.1em;
+	  color: grey;
+  	  transition:all 333ms ease-in-out;
+	  &:active, &:focus {border-color:$dark-grey;}
+}
+
+#diet {
+	width: 100px;
+}
+
+#status {
+	width: 100px;
+	height: 100px;
+}
+
+#save {
+
+}
+

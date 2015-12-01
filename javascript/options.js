@@ -1,6 +1,6 @@
 var saveOptions = function(){
 	var diet = document.getElementById('diet').value;
-
+	console.log(diet);
 	chrome.storage.sync.set({
 		currentDiet: diet
 	}, function(){
@@ -16,7 +16,7 @@ var restoreOptions = function(){
 	chrome.storage.sync.get({
 		currentDiet: 'Paleo',
 	}, function(items){
-		console.log(items);
+		console.log(items.currentDiet);
 		document.getElementById('diet').value = items.currentDiet;
 	});
 };

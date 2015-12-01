@@ -16,17 +16,22 @@ Customize:
 <!doctype html>
 <html>
 <head>
-	<title>Testing</title>
+	<title>Can I Eat This?</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-	<h2>Pick a diet:</h2>
-	<select id="diet">
-		<option value="Paleo">Paleo</option>
-		<option value="AIPPaleo">AIP Paleo</option>
-	</select>
+	<div class='options-container'>
+		<div class='form'>
+			<h2>Pick a diet:</h2>
+			<select id="diet">
+				<option name='action' id='paleo' value="Paleo" />Paleo</option>
+				<option name='action' value="AIPPaleo" id='aippaleo' />AIP Paleo</option>
+			</select>
 
-	<div id="status"></div>
-	<button id="save">Save</button>
+			<div id="status"></div>
+			<button id="save">Save</button>
+		</div>
+	</div>
 
 	<script type="text/javascript" src='javascript/options.js'></script>
 </body>
