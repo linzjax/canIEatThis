@@ -128,6 +128,7 @@ var formatIngredients = function(ingredient){
 
 var compareIngredients = function(ingredients){
 	var finalList = [];
+	var dontEat = {};
 	var ingredientsToDiplay = '<h2>You should leave these out:</h2>';
 	//go through each ingredient scraped
 	ingredients.forEach(function(ingredient){
@@ -208,6 +209,7 @@ chooseDiet.then(
 		console.log('booo', error);
 	}
 ).then(function(result){
+	var dontEat = {};
 	Object.keys(diets).forEach(function(diet){
 		if (diet === result){
 			dontEat = diets[diet];

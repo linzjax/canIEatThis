@@ -12,3 +12,40 @@ So I made a extension that does the analyzing for me.
 #####To Do:
 *Format so that only food words are shown
 *Enable the user to customize which diet they are following
+
+#### Database Structure
+
+---------------------------------------------------------
+| 
+| Food
+---------------------------------------------------------
+| food_id      | SERIAL PRIMARY KEY -> 1
+| name         | VARCHAR(255) -> "wheat"
+| food_type_id | INT FOREIGN KEY REFERENCES FoodType(food_type_id)
+---------------------------------------------------------
+
+---------------------------------------------------------
+|
+| FoodType
+---------------------------------------------------------
+| food_type_id | SERIAL PRIMARY KEY -> 1
+| name         | VARCHAR(255) -> "grains"
+---------------------------------------------------------
+
+
+_________________________________________________________
+|
+| Diet
+---------------------------------------------------------
+| diet_id      | SERIAL PRIMARY KEY -> 1
+| name         | VARCHAR(255) -> "paleo"
+---------------------------------------------------------
+
+_________________________________________________________
+|
+| RestrictionList
+---------------------------------------------------------
+| diet_id      | INT FOREIGN KEY REFERENCES Diet(diet_id)
+| food_type_id | INT FOREIGN KEY REFERENCES FoodType(food_type_id)
+---------------------------------------------------------
+
