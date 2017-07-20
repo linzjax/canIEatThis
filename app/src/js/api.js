@@ -61,6 +61,30 @@ router.post('/foodtype', function(req, res, next) {
 	addItem('foodType', ['name'], req, res);
 })
 
+router.get('/foodtype/:foodtype', function(req, res) {
+	var results = [];
+	var foodtype = req.params.foodtype;
+
+	pg.connect(connectString, (err, client, done) => {
+		if (err) {
+			done();
+			console.log(err);
+			return res.status(500).json({success: false, data: err});
+		}
+		var query = client.query(
+			'SELECT food.name FROM food ' +
+  			'JOIN foodType ' +
+    		'ON foodType.food_type_id = food.food_type_id ' +
+ 			'WHERE foodType.name = $1' + 
+ 			'ORDER BY food.name ASC', [foodtype])
+		query.on('row', (row) => { results.push(row); })
+		query.on('end', () => {
+			done();
+			return res.json(results);
+		});
+	});
+})
+
 router.get('/diet', function(req, res, next) {
 	getList('diet', res);
 });
@@ -80,14 +104,13 @@ router.get('/diet/:diet', function(req, res, next) {
 			return res.status(500).json({success: false, data: err});
 		}
 		var query = client.query(
-			'SELECT food.name FROM food ' +
-  			'JOIN foodType ' +
-    		'ON foodType.food_type_id = food.food_type_id ' +
-  			'JOIN restriction ' + 
+			'SELECT foodType.name, foodType.food_type_id FROM foodType ' +
+			'JOIN restriction ' + 
     		'ON restriction.food_type_id = foodType.food_type_id ' + 
     		'JOIN diet ' +
     		'ON diet.diet_id = restriction.diet_id ' +
- 			'WHERE diet.name = $1', [diet])
+ 			'WHERE diet.name = $1' + 
+ 			'ORDER BY foodType.name ASC', [diet]);
 		query.on('row', (row) => { results.push(row); })
 		query.on('end', () => {
 			done();

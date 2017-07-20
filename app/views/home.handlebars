@@ -1,4 +1,19 @@
 <script type='text/javascript' src='static/js/main.js'></script>
 <!-- <script type="text/javascript"></script> -->
-<h1>Hey what's up?</h1>
-<div id='results'></div>
+<div>
+	<h1>Do I Eat This?</h1>
+	<strong>Select a diet:</strong>
+	<form id='diet-choice-form'>
+		<select id='diet-choice' >
+			<option>paleo</option>
+			<option>aip paleo</option>
+			<option>gluten-free</option>
+		</select>
+	</form>
+	<strong>Check a recipe:</strong>
+	<form id='recipe-check-form'>
+		<input id='recipe-check' />
+		<button type='submit'>Check</button>
+	</form>
+</div>
+<div id='results' class='row'></div>

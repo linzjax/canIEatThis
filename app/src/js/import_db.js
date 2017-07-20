@@ -70,10 +70,10 @@ function ImportDatabase(){
 			["arrowroot", "cornstarch", "katakuri starch", "potato starch", "sago", "tapioca", "alginin", "guar gum", "locust bean gum", "xanthan gum", "collagen", "egg whites", " furcellaran", "gelatin", "starch","baking powder"],
 
 		"grain":
-			["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "sorghum", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita","bread","flour"],
+			["wheat", "barley malt", "bran", "bulgar", "couscous", "farina", "kamut", "orzo", "semolina", "beer", "glucose made from wheat", "montina flour", "graham flour", "commercially made stock", "soy sauce", "amaranth", "barley", "bulgur", "farro", "emmer", "flaxseed", "grano", "kamut grain", "millet", "cereal", "muesli", "rye", "spelt", "teff", "triticale", "barley", "wheat berries", "rye", "couscous", "cracker", "pasta", "pita","bread","flour"],
 
 		"gluten-free grains":
-			["corn", "cornflour", "cornmeal", "millet", "rice", "wild rice", "teff", "sorghum", "buckwheat", "quinoa", "oats", "oatmeal", "popcorn","gluten-free flour"],
+			["corn", "cornflour", "cornmeal", "millet", "rice", "wild rice", "teff", "sorghum", "buckwheat", "quinoa", "oats", "oatmeal", "popcorn", "gluten-free flour"],
 
 		"gluten cross-reactive foods":
 			["yeast", "tapioca"],
